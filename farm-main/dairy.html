@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dairy Products</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Body */
+    body {
+      background: linear-gradient(to right, #e0f7fa, #f1f8e9);
+      color: #333;
+    }
+
+    /* Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: #00796b;
+      color: #fff;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    header .logo {
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+
+    header nav a {
+      margin-left: 25px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    header nav a:hover {
+      color: #ffeb3b;
+      transform: scale(1.2) rotateX(15deg);
+    }
+
+    /* Section */
+    .products {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .products h2 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      color: #00796b;
+    }
+
+    .product-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .product {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 15px;
+      width: 250px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      transition: transform 0.5s, box-shadow 0.5s;
+      perspective: 800px;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.5s;
+      height: 180px;
+      object-fit: contain;
+    }
+
+    .product h3 {
+      margin: 15px 0;
+      color: #00796b;
+    }
+
+    /* 3D hover effect */
+    .product:hover {
+      transform: rotateY(15deg) translateY(-10px);
+      box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+    }
+
+    .product:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 10px 25px;
+      margin-top: 10px;
+      border-radius: 50px;
+      background: #00796b;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+
+    .btn:hover {
+      background: #004d40;
+      transform: translateY(-5px) rotateX(10deg);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">AGRIGO</div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="grains.html">Grains</a>
+    <a href="vegetables.html">Vegetables</a>
+    <a href="dairy.html">Dairy Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="profile.html">MyProfile</a> <!-- New Profile button -->
+  </nav>
+</header>
+
+  <section class="products">
+    <h2>Dairy Products</h2>
+    <div class="product-list">
+
+      <div class="product">
+        <a href="milk.html"><img src="image/milkk.png" alt="Milk"></a>
+        <h3>Milk</h3>
+        <a href="milk.html" class="btn">View Details</a>
+      </div>
+
+      <div class="product">
+        <a href="curd.html"><img src="image/curd.png" alt="Curd"></a>
+        <h3>Curd</h3>
+        <a href="curd.html" class="btn">View Details</a>
+      </div>
+
+      <div class="product">
+        <a href="butter.html"><img src="image/butter.jpg" alt="Butter"></a>
+        <h3>Butter</h3>
+        <a href="butter.html" class="btn">View Details</a>
+      </div>
+
+      <div class="product">
+        <a href="ghee.html"><img src="image/ghee.jpg" alt="Ghee"></a>
+        <h3>Ghee</h3>
+        <a href="ghee.html" class="btn">View Details</a>
+      </div>
+
+      <div class="product">
+        <a href="cheese.html"><img src="image/chees.jpg" alt="Cheese"></a>
+        <h3>Cheese</h3>
+        <a href="cheese.html" class="btn">View Details</a>
+      </div>
+
+      <div class="product">
+        <a href="paneer.html"><img src="image/panne.avif" alt="Paneer"></a>
+        <h3>Paneer</h3>
+        <a href="paneer.html" class="btn">View Details</a>
+      </div>
+
+    </div>
+  </section>
+</body>
+</html>

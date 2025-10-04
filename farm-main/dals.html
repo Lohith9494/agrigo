@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Dals - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-detail {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .product-detail img {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+    }
+    .details {
+      flex: 1;
+    }
+    .details h2 {
+      margin-top: 0;
+    }
+    .btn {
+      padding: 8px 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #388E3C;
+    }
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, input[type="number"] {
+      padding: 6px;
+      margin-left: 10px;
+      font-size: 16px;
+    }
+    #totalPrice {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">AGRIGO</div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="grains.html">Grains</a>
+    <a href="vegetables.html">Vegetables</a>
+    <a href="dairy.html">Dairy Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="profile.html">MYProfile</a> <!-- New Profile button -->
+  </nav>
+</header>
+
+
+  <section class="product-detail">
+    <img src="https://img.cdnx.in/27189/1654954304710_istockphoto531535314612x612.jpeg?width=600&format=webp" alt="Premium Dals">
+    <div class="details">
+      <h2>Premium Dals (5kg Bag)</h2>
+
+      <label for="dalType">Select Type:</label>
+      <select id="dalType">
+        <option value="Toor Dal">Toor Dal</option>
+        <option value="Moong Dal">Moong Dal</option>
+        <option value="Chana Dal">Chana Dal</option>
+        <option value="Urad Dal">Urad Dal</option>
+        <option value="Masoor Dal">Masoor Dal</option>
+      </select>
+
+      <br><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <p id="totalPrice">Total Price: ₹500</p>
+
+      <button class="btn" id="addToCartBtn">Add to Cart</button>
+
+      <p class="description">
+        High-quality dals in 5kg bags, perfect for daily meals. Available in varieties like Toor, Moong, Chana, Urad, and Masoor. Ideal for curries, soups, and traditional dishes.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    // Prices for each dal type
+    const dalPrices = {
+      "Toor Dal": 500,
+      "Moong Dal": 550,
+      "Chana Dal": 480,
+      "Urad Dal": 520,
+      "Masoor Dal": 490
+    };
+
+    const dalTypeSelect = document.getElementById("dalType");
+    const quantityInput = document.getElementById("quantity");
+    const totalPriceEl = document.getElementById("totalPrice");
+
+    // Update total price based on dal type and quantity
+    function updateTotalPrice() {
+      const selectedDal = dalTypeSelect.value;
+      const qty = parseInt(quantityInput.value) || 1;
+      const price = dalPrices[selectedDal];
+      totalPriceEl.textContent = `Total Price: ₹${price * qty}`;
+    }
+
+    // Event listeners
+    dalTypeSelect.addEventListener("change", updateTotalPrice);
+    quantityInput.addEventListener("input", updateTotalPrice);
+
+    // Initialize total price
+    updateTotalPrice();
+
+    // Add to cart
+    document.getElementById("addToCartBtn").addEventListener("click", function() {
+      const selectedDal = dalTypeSelect.value;
+      const qty = parseInt(quantityInput.value) || 1;
+      const price = dalPrices[selectedDal];
+
+      const cartItem = {
+        name: "Premium Dals (5kg Bag)",
+        type: selectedDal,
+        price: price,
+        qty: qty
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert(`${qty} x ${selectedDal} added to cart!`);
+    });
+  </script>
+</body>
+</html>

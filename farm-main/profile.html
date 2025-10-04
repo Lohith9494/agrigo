@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Account - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #2e7d32;
+    }
+    .bio, .orders {
+      margin-top: 20px;
+    }
+    .bio p, .orders p {
+      margin: 5px 0;
+    }
+    .order {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+    }
+    .order h4 {
+      margin: 0 0 10px 0;
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .order-total {
+      font-weight: bold;
+      text-align: right;
+      color: #2e7d32;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AGRIGO</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="grains.html">Grains</a>
+      <a href="vegetables.html">Vegetables</a>
+      <a href="dairy.html">Dairy Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="account.html">My Account</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>My Account</h2>
+
+    <!-- User Bio -->
+    <div class="bio">
+      <h3>Profile Information</h3>
+      <p><strong>Name:</strong> <span id="user-name"></span></p>
+      <p><strong>Email:</strong> <span id="user-email"></span></p>
+      <p><strong>Phone:</strong> <span id="user-phone"></span></p>
+      <p><strong>Address:</strong> <span id="user-address"></span></p>
+    </div>
+
+    <!-- Orders -->
+    <div class="orders">
+      <h3>Order History</h3>
+      <div id="order-list"></div>
+    </div>
+  </div>
+
+  <script>
+    // Sample user data stored in localStorage
+    let user = JSON.parse(localStorage.getItem("user")) || {
+      name: "John Doe",
+      email: "john@example.com",
+      phone: "9876543210",
+      address: "123 Main Street, City, Country"
+    };
+
+    // Display user bio
+    document.getElementById("user-name").innerText = user.name;
+    document.getElementById("user-email").innerText = user.email;
+    document.getElementById("user-phone").innerText = user.phone;
+    document.getElementById("user-address").innerText = user.address;
+
+    // Sample order data stored in localStorage
+    // Each order contains an array of items and total
+    let orders = JSON.parse(localStorage.getItem("orders")) || [
+      {
+        date: "2025-10-03",
+        items: [
+          {name: "Potato", qty: 2, price: 30},
+          {name: "Milk", qty: 1, price: 50}
+        ],
+        total: 110
+      },
+      {
+        date: "2025-10-01",
+        items: [
+          {name: "Tomato", qty: 3, price: 40},
+          {name: "Butter", qty: 1, price: 120}
+        ],
+        total: 240
+      }
+    ];
+
+    // Display orders
+    let orderList = document.getElementById("order-list");
+    if(orders.length === 0){
+      orderList.innerHTML = "<p>No orders placed yet.</p>";
+    } else {
+      orders.forEach((order, index) => {
+        let orderDiv = document.createElement("div");
+        orderDiv.classList.add("order");
+        orderDiv.innerHTML = `<h4>Order #${index+1} - ${order.date}</h4>`;
+        order.items.forEach(item => {
+          orderDiv.innerHTML += `
+            <div class="order-item">
+              <span>${item.name} x${item.qty}</span>
+              <span>₹${item.price * item.qty}</span>
+            </div>
+          `;
+        });
+        orderDiv.innerHTML += `<div class="order-total">Total: ₹${order.total}</div>`;
+        orderList.appendChild(orderDiv);
+      });
+    }
+  </script>
+</body>
+</html>

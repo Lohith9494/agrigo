@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Butter - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .product-detail {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      align-items: center;
+    }
+
+    .product-detail img {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .details {
+      flex: 1;
+    }
+
+    .details h2 {
+      margin-top: 0;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #388E3C;
+    }
+
+    .price, #totalPrice {
+      font-weight: bold;
+      margin: 10px 0;
+      color: #d32f2f;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select, input[type="number"] {
+      padding: 6px;
+      margin-left: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">AGRIGO</div>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="grains.html">Grains</a>
+    <a href="vegetables.html">Vegetables</a>
+    <a href="dairy.html">Dairy Products</a>
+    <a href="cart.html">Cart</a>
+    <a href="profile.html">My Profile</a> <!-- New Profile button -->
+  </nav>
+</header>
+
+
+  <section class="product-detail">
+    <img src="image/butter.jpg" alt="Butter">
+    <div class="details">
+      <h2>Fresh Butter</h2>
+
+      <label for="unit">Select Weight:</label>
+      <select id="unit">
+        <option value="100g">100 g - ₹50</option>
+        <option value="200g">200 g - ₹95</option>
+        <option value="500g">500 g - ₹230</option>
+      </select>
+
+      <br><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <p class="price" id="pricePerUnit">Price per Unit: ₹50</p>
+      <p id="totalPrice">Total Price: ₹50</p>
+
+      <button class="btn" id="addToCartBtn">Add to Cart</button>
+
+      <p class="description">
+        Fresh creamy butter made from pure milk. Perfect for cooking, baking, and spreading on bread or parathas.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const priceMap = {"100g":50,"200g":95,"500g":230};
+    const unitSelect = document.getElementById("unit");
+    const quantityInput = document.getElementById("quantity");
+    const pricePerUnitEl = document.getElementById("pricePerUnit");
+    const totalPriceEl = document.getElementById("totalPrice");
+
+    function updatePrices() {
+      const unit = unitSelect.value;
+      const qty = parseInt(quantityInput.value) || 1;
+      const price = priceMap[unit];
+      pricePerUnitEl.textContent = `Price per Unit: ₹${price}`;
+      totalPriceEl.textContent = `Total Price: ₹${price * qty}`;
+    }
+
+    unitSelect.addEventListener("change", updatePrices);
+    quantityInput.addEventListener("input", updatePrices);
+
+    updatePrices(); // initialize prices
+
+    document.getElementById("addToCartBtn").addEventListener("click", function() {
+      const unit = unitSelect.value;
+      const qty = parseInt(quantityInput.value) || 1;
+      const price = priceMap[unit];
+
+      const cartItem = {
+        name: "Fresh Butter",
+        unit: unit,
+        price: price,
+        qty: qty
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert(`${qty} x ${unit} Butter added to cart!`);
+    });
+  </script>
+</body>
+</html>

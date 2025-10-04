@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 20px;
+    }
+    .payment-option {
+      margin: 15px 0;
+    }
+    .payment-option label {
+      display: block;
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .payment-option input[type="radio"] {
+      margin-right: 10px;
+    }
+    .payment-option label:hover {
+      background: #e8f5e9;
+      border-color: #2e7d32;
+    }
+    .coupon-section {
+      margin: 20px 0;
+      display: flex;
+      gap: 10px;
+    }
+    .coupon-section input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    .coupon-section button {
+      padding: 10px 15px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .coupon-section button:hover {
+      background: #1b5e20;
+    }
+    #payBtn {
+      width: 100%;
+      padding: 12px;
+      background: #e53935;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #payBtn:hover {
+      background: #c62828;
+    }
+    #total-amount {
+      text-align: right;
+      font-size: 20px;
+      font-weight: bold;
+      color: #2e7d32;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AGRIGO</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h2>Payment Details</h2>
+    
+    <!-- Total Amount -->
+    <div id="total-amount">Total: ₹0</div>
+
+    <!-- Coupon Section -->
+    <div class="coupon-section">
+      <input type="text" id="couponCode" placeholder="Enter coupon code">
+      <button onclick="applyCoupon()">Apply</button>
+    </div>
+
+    <!-- Payment Options -->
+    <div class="payment-option">
+      <label><input type="radio" name="payment" value="Debit Card" checked> Debit Card</label>
+      <label><input type="radio" name="payment" value="Credit Card"> Credit Card</label>
+      <label><input type="radio" name="payment" value="UPI"> UPI</label>
+      <label><input type="radio" name="payment" value="Cash on Delivery"> Cash on Delivery</label>
+    </div>
+
+    <button id="payBtn">Pay Now</button>
+  </div>
+
+  <script>
+    // Get total from localStorage cart
+    function calculateTotal() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let total = 0;
+      cart.forEach(item => {
+        total += parseFloat(item.price) * parseInt(item.qty);
+      });
+      return total;
+    }
+
+    // Display total
+    const totalAmountEl = document.getElementById("total-amount");
+    let totalAmount = calculateTotal();
+    totalAmountEl.innerText = "Total: ₹" + totalAmount;
+
+    // Apply coupon
+    function applyCoupon() {
+      const code = document.getElementById("couponCode").value.trim();
+      if(!code) {
+        alert("Please enter a coupon code.");
+        return;
+      }
+      // Simple example: 10% off for code "AGRIGO10"
+      if(code.toUpperCase() === "AGRIGO10") {
+        totalAmount = totalAmount * 0.9;
+        totalAmountEl.innerText = "Total after discount: ₹" + totalAmount.toFixed(2);
+        alert("Coupon applied successfully! 10% discount.");
+      } else {
+        alert("Invalid coupon code.");
+      }
+    }
+
+    // Payment button
+    document.getElementById("payBtn").onclick = function() {
+      const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+      if(totalAmount === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      alert(`Payment of ₹${totalAmount.toFixed(2)} via ${selectedPayment} successful!`);
+      // Optionally clear cart and redirect to confirmation page
+      localStorage.removeItem("cart");
+      window.location.href = "home.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Potato - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-detail {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      align-items: center;
+      flex-wrap: wrap; /* allows wrapping on smaller screens */
+    }
+    .product-detail img {
+      width: 100%;
+      max-width: 200px; /* maximum size on large screens */
+      height: auto;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .details {
+      flex: 1;
+      min-width: 200px; /* ensures text doesn’t shrink too much */
+    }
+    .details h2 {
+      margin-top: 0;
+    }
+    .btn {
+      padding: 8px 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #388E3C;
+    }
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    /* Responsive adjustments for small screens */
+    @media (max-width: 600px) {
+      .product-detail {
+        flex-direction: column;
+        text-align: center;
+      }
+      .product-detail img {
+        max-width: 150px;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AGRIGO</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="grains.html">Grains</a>
+      <a href="vegetables.html">Vegetables</a>
+      <a href="dairy.html">Dairy Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="profile.html">My Profile</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+
+  <section class="product-detail">
+    <img src="image/veg2.avif" alt="Potato">
+    <div class="details">
+      <h2>Fresh Potato</h2>
+      <p class="price">₹30 / kg</p>
+
+      <label for="unit">Select Weight:</label>
+      <select id="unit">
+        <option value="500g">500 g - ₹15</option>
+        <option value="1kg">1 kg - ₹30</option>
+        <option value="2kg">2 kg - ₹55</option>
+        <option value="5kg">5 kg - ₹130</option>
+      </select>
+
+      <br><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <br>
+      <button class="btn" id="addToCartBtn">Add to Cart</button>
+
+      <p class="description">
+        Freshly harvested potatoes, rich in starch and taste. Ideal for fries, curries, and snacks.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("addToCartBtn").addEventListener("click", function() {
+      const unit = document.getElementById("unit").value;
+      const quantity = parseInt(document.getElementById("quantity").value);
+      const priceMap = {"500g":15,"1kg":30,"2kg":55,"5kg":130};
+      const price = priceMap[unit];
+      const cartItem = {name:"Potato", unit:unit, price:price, qty:quantity};
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`${quantity} x ${unit} Potato added to cart!`);
+    });
+  </script>
+</body>
+</html>

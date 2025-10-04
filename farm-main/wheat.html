@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Wheat - AGRIGO</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .product-detail {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+      max-width: 800px;
+      margin: 30px auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .product-detail img {
+      width: 200px;  /* smaller image like Potato page */
+      height: auto;
+      border-radius: 8px;
+    }
+    .details {
+      flex: 1;
+    }
+    .details h2 {
+      margin-top: 0;
+    }
+    .btn {
+      padding: 8px 16px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: #388E3C;
+    }
+    .price {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    label {
+      font-weight: bold;
+    }
+    select, input[type="number"] {
+      padding: 6px;
+      margin-left: 10px;
+      font-size: 16px;
+    }
+    #totalPrice {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">AGRIGO</div>
+    <nav>
+      <a href="home.html">Home</a>
+      <a href="grains.html">Grains</a>
+      <a href="vegetables.html">Vegetables</a>
+      <a href="dairy.html">Dairy Products</a>
+      <a href="cart.html">Cart</a>
+      <a href="profile.html">My Profile</a>
+      <a href="logout.html">Logout</a>
+    </nav>
+  </header>
+
+  <section class="product-detail">
+    <img src="image/g2.webp" alt="Premium Wheat">
+    <div class="details">
+      <h2>Premium Wheat (25kg Bag)</h2>
+      <p class="price">₹950 / 25kg</p>
+
+      <label for="wheatType">Select Type:</label>
+      <select id="wheatType">
+        <option value="Whole Wheat">Whole Wheat</option>
+        <option value="Durum Wheat">Durum Wheat</option>
+        <option value="Emmer Wheat">Emmer Wheat</option>
+        <option value="Spelt Wheat">Spelt Wheat</option>
+      </select>
+
+      <br><br>
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" value="1" min="1">
+
+      <p id="totalPrice">Total Price: ₹950</p>
+
+      <button class="btn" id="addToCartBtn">Add to Cart</button>
+
+      <p class="description">
+        High-quality wheat (25kg bag) suitable for daily consumption and baking. Available in Whole, Durum, Emmer, and Spelt wheat varieties.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    const pricePerBag = 950;
+    const quantityInput = document.getElementById("quantity");
+    const totalPriceEl = document.getElementById("totalPrice");
+
+    // Update total price dynamically
+    function updateTotalPrice() {
+      const qty = parseInt(quantityInput.value) || 1;
+      totalPriceEl.textContent = `Total Price: ₹${pricePerBag * qty}`;
+    }
+
+    quantityInput.addEventListener("input", updateTotalPrice);
+    updateTotalPrice(); // initialize
+
+    // Add to cart
+    document.getElementById("addToCartBtn").addEventListener("click", function() {
+      const wheatType = document.getElementById("wheatType").value;
+      const quantity = parseInt(quantityInput.value) || 1;
+
+      const cartItem = {
+        name: "Premium Wheat (25kg Bag)",
+        type: wheatType,
+        price: pricePerBag,
+        qty: quantity
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      alert(`${quantity} x ${wheatType} added to cart!`);
+    });
+  </script>
+</body>
+</html>
